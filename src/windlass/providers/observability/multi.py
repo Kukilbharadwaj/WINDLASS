@@ -28,8 +28,8 @@ Example:
     >>> tracer = Windlass.tracer("multi", backends=["memory", "memory"])
     >>> with tracer.span("work", kind="chain"):
     ...     pass
-    >>> [len(b.spans) for b in tracer.backends]
-    [1, 1]
+    >>> tuple(len(b.spans) for b in tracer.backends)
+    (1, 1)
 """
 
 from __future__ import annotations
