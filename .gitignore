@@ -88,3 +88,8 @@ models/
 *.gguf
 *.safetensors
 *.bin
+
+# Private deployment notes — never published
+DEPLOY.md
+deploy.md
+image.png
