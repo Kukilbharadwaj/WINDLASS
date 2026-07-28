@@ -172,6 +172,35 @@ current vendor SDK to reproduce.
   tear down. Detection matches on status and message rather than exception
   class, which moved between SDK generations.
 
+## [0.1.1] — 2026-07-29
+
+Documentation and packaging only. No functional change — upgrading from 0.1.0
+changes nothing about how the framework behaves.
+
+### Fixed
+
+- **The API reference rendered a broken link on the `multi` tracer page.** The
+  module's doctest output was written as `[1, 1]`, which is Markdown
+  reference-link syntax, so mkdocstrings tried to resolve it as a cross-reference
+  and `mkdocs build --strict` aborted. The example now yields `(1, 1)` and
+  asserts exactly the same thing.
+
+- **Corrected inaccurate claims throughout the documentation**, each verified
+  against the source: the core install is four packages rather than two;
+  `agent.draw()` and `rag.aingest_documents()` are runtime methods, not builder
+  methods, and the examples now call them through `build()`;
+  `rag.chunker(strategy=...)` silently produced a recursive chunker because
+  `spec` is positional-only; the `MissingDependencyError` sample quoted the
+  wrong extras group; test counts and component counts were stale; and `cache`
+  and `checkpointer` were described as extending `Component`, which they do not.
+
+- Import ordering in five example scripts, so `ruff check` passes cleanly.
+
+### Changed
+
+- Project URLs now point at the real repository and the live documentation site
+  at <https://kukilbharadwaj.github.io/WINDLASS/>.
+
 ## [0.1.0] — 2026-07-26
 
 First release.
