@@ -3,6 +3,10 @@ name: CI
 on:
   push:
     branches: [main]
+    # Release tags must be listed explicitly. Without this the workflow never
+    # starts for a tag push, so the publish job below — which is gated on a
+    # tag ref — can never run.
+    tags: ["v*"]
   pull_request:
   workflow_dispatch:
 
@@ -199,3 +203,7 @@ jobs:
           path: dist/
 
       - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          # Re-running a release tag must not fail the build. A version that is
+          # already on PyPI is skipped rather than treated as an error.
+          skip-existing: true
