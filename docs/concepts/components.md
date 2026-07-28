@@ -1,6 +1,6 @@
 # Components
 
-Everything replaceable in Windlass is a **component**. There are fifteen kinds. Each has exactly one interface, and every implementation — built-in or yours — satisfies the same contract.
+Everything replaceable in Windlass is a **component**. There are fifteen kinds, thirteen of which have a formal interface in `interfaces/`. Each kind has exactly one contract, and every implementation — built-in or yours — satisfies it.
 
 ## The catalogue
 
@@ -26,6 +26,7 @@ Interface: [`LLM`][windlass.interfaces.llm.LLM]
 |---|---|---|
 | `hash` | — | Hashed n-grams. Deterministic, dependency-free, not semantic |
 | `huggingface` | `embeddings` | Local `sentence-transformers`; applies E5/BGE/Nomic instruction prefixes for you |
+| `hf_inference` | — | HuggingFace Inference API — hosted, no local model, speaks the core `httpx` |
 | `openai` | `openai` | Supports Matryoshka dimension reduction |
 
 Interface: [`Embedder`][windlass.interfaces.embedding.Embedder]
@@ -119,7 +120,7 @@ Interface: [`Evaluator`][windlass.interfaces.evaluator.Evaluator]
 
 ### `tracer` — observability
 
-`console` · `memory` · `null` (dependency-free), plus `langsmith` and `langfuse` (`observability`).
+`console` · `memory` · `null` · `multi` (fans one span out to several backends) — all dependency-free — plus `langsmith` and `langfuse` (`observability`).
 
 Interface: [`Tracer`][windlass.interfaces.tracer.Tracer]
 
@@ -137,9 +138,11 @@ Interface: [`MCPClient`][windlass.interfaces.mcp.MCPClient]
 
 `tool` ships no built-ins by design — a generic built-in tool would either be useless or a security footgun. `cache` offers `memory`, `disk` and `null`; `checkpointer` offers `memory` and `sqlite`.
 
+`cache` and `checkpointer` are the two kinds that are *not* built on `Component`: they are plain ABCs (`windlass.core.cache.Cache` and `windlass.agent.checkpoint.Checkpointer`) because neither wraps a provider SDK, so neither has anything for `native()` to return. They register and resolve through the registry exactly like the other thirteen.
+
 ## What every component shares
 
-All fifteen kinds extend [`Component`][windlass.interfaces.base.Component]:
+Thirteen of the fifteen kinds extend [`Component`][windlass.interfaces.base.Component] — every kind with a contract in `interfaces/`:
 
 ```python
 component.name              # identifier used in traces and errors

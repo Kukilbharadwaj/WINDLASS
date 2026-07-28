@@ -121,7 +121,7 @@ EvaluationReport(2 samples, pass_rate=100.0%)
 
 **Lexical** — free, deterministic, no model. The right choice for a CI gate:
 
-`exact_match` · `f1` · `rouge_l` · `answer_relevancy_lexical` · `context_precision_lexical` · `context_recall_lexical`
+`exact_match` · `f1` · `rouge_l` · `answer_relevancy_lexical` · `context_precision_lexical` · `context_recall_lexical` · `answer_length`
 
 **LLM-judged** — costs tokens, measures what overlap cannot:
 

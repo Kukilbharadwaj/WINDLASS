@@ -22,7 +22,7 @@ It earns its place when you have more than one of: several providers to support,
 
 ### Is it production ready?
 
-The framework is: typed, tested (312 tests, mypy clean), with real error handling, retries, thread safety and observability throughout. It is pre-1.0, which means the public API may still change between minor versions — every break is recorded in the changelog with a migration path.
+The framework is: typed, tested (over 650 tests, mypy clean), with real error handling, retries, thread safety and observability throughout. It is pre-1.0, which means the public API may still change between minor versions — every break is recorded in the changelog with a migration path.
 
 ### What is the license?
 
@@ -179,7 +179,7 @@ index  = rag.native_store()     # the raw faiss.Index
 client = rag.native_llm()       # the raw openai.AsyncOpenAI
 ```
 
-`native()` is on the base `Component` class, so **every** component has it — including ones you have not read the source of. See [Three levels](../concepts/three-levels.md).
+`native()` is on the base `Component` class, so **every** component built on an interface has it — including ones you have not read the source of. See [Three levels](../concepts/three-levels.md).
 
 ### Can I add a whole new *kind* of component?
 
@@ -247,7 +247,7 @@ For one provider and one use case, calling the SDK is the right answer and you s
 
 ### How do I contribute?
 
-See [CONTRIBUTING.md](https://github.com/windlass/windlass/blob/main/CONTRIBUTING.md). The most valuable contributions are provider adapters, loaders, and documentation from someone who has just been confused by something.
+See [CONTRIBUTING.md](https://github.com/Kukilbharadwaj/WINDLASS/blob/main/CONTRIBUTING.md). The most valuable contributions are provider adapters, loaders, and documentation from someone who has just been confused by something.
 
 ### Can I add a provider for X?
 

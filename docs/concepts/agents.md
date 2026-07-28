@@ -289,8 +289,10 @@ agent.recompile()
 ```
 
 ```python
-print(agent.draw())     # a Mermaid diagram of the compiled graph
+print(agent.build().draw())     # a Mermaid diagram of the compiled graph
 ```
+
+`draw()` lives on the runtime rather than the builder, so call `build()` first — it returns the already-constructed runtime, so this costs nothing.
 
 ## The step budget
 

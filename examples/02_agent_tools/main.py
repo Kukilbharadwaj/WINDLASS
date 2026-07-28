@@ -11,7 +11,7 @@ from __future__ import annotations
 import json
 from typing import Literal
 
-from windlass import Windlass, ToolCall, tool
+from windlass import ToolCall, Windlass, tool
 
 # ---------------------------------------------------------------------------
 # Tools. The schema comes from the type hints; the description from the

@@ -2,7 +2,7 @@
 
 ## Upgrading Windlass
 
-Windlass follows semantic versioning. Before 1.0, minor versions may change public API; every break is recorded in the [changelog](https://github.com/windlass/windlass/blob/main/CHANGELOG.md) with a migration path.
+Windlass follows semantic versioning. Before 1.0, minor versions may change public API; every break is recorded in the [changelog](https://github.com/Kukilbharadwaj/WINDLASS/blob/main/CHANGELOG.md) with a migration path.
 
 ```bash
 pip install --upgrade windlass
@@ -225,4 +225,4 @@ Migrating incrementally is fine — Windlass components work standalone, so you 
 
 ### 0.1.0
 
-Initial release. See the [changelog](https://github.com/windlass/windlass/blob/main/CHANGELOG.md).
+Initial release. See the [changelog](https://github.com/Kukilbharadwaj/WINDLASS/blob/main/CHANGELOG.md).

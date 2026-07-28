@@ -27,7 +27,7 @@ Building an AI product today means integrating LangGraph, LangChain, FastMCP, Hu
 pip install windlass
 ```
 
-That is the whole core: `pydantic`, `httpx`, and nothing else. It already gives you a working end-to-end RAG pipeline and a working agent, offline, with no API keys — because Windlass ships dependency-free implementations of every essential component.
+That is the whole core: `pydantic`, `pydantic-settings`, `httpx` and `typing-extensions`. No torch, no LangChain, no vector database driver. It already gives you a working end-to-end RAG pipeline and a working agent, offline, with no API keys — because Windlass ships dependency-free implementations of every essential component.
 
 Add what you actually need:
 
@@ -50,7 +50,7 @@ MissingDependencyError: The Pinecone vector store is not installed.
 
 Hint: Run:
 
-    pip install "windlass[vectordb]"
+    pip install "windlass[pinecone]"
 ```
 
 ## RAG in five lines
@@ -136,7 +136,7 @@ rag.ask("What is RAG?")
 **Level 2 — configure it.**
 
 ```python
-rag.chunker(strategy="semantic", chunk_size=1000, overlap=200)
+rag.chunker("semantic", chunk_size=1000, overlap=200)
 ```
 
 **Level 3 — reach past it.** Windlass simplifies libraries; it never hides them.
@@ -168,7 +168,7 @@ client = rag.native_llm()               # the raw openai.AsyncOpenAI
 | **Memory** | Buffer · sliding window · summarising · vector long-term · composite |
 | **Guardrails** | Rule-based (PII, injection, secrets, keywords) · NVIDIA NeMo Guardrails |
 | **Evaluation** | Built-in lexical & LLM-judged metrics · RAGAS · DeepEval |
-| **Observability** | Console · in-memory · LangSmith · Langfuse |
+| **Observability** | Console · in-memory · null · multi-backend fan-out · LangSmith · Langfuse |
 
 ## Everything is replaceable
 
@@ -194,7 +194,7 @@ Ship it as a package and it installs into other people's Windlass:
 by-sentence = "my_package.chunkers:SentenceChunker"
 ```
 
-The same applies to all thirteen kinds: `llm`, `embedding`, `loader`, `preprocessor`, `chunker`, `retriever`, `vectordb`, `memory`, `guardrail`, `evaluator`, `tracer`, `tool`, `mcp`.
+The same applies to all fifteen kinds: `llm`, `embedding`, `loader`, `preprocessor`, `chunker`, `retriever`, `vectordb`, `memory`, `guardrail`, `evaluator`, `tracer`, `tool`, `mcp`, `cache`, `checkpointer`.
 
 ## Async, streaming, and production concerns
 
@@ -301,7 +301,7 @@ Start with `docs/getting-started/quickstart.md`, then `docs/concepts/architectur
 Windlass is built to be extended, and contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the development setup, the architecture rules that keep the framework decoupled, and what a good pull request looks like.
 
 ```bash
-git clone https://github.com/windlass/windlass && cd windlass
+git clone https://github.com/Kukilbharadwaj/WINDLASS && cd WINDLASS
 python -m venv venv && venv/Scripts/activate   # or: source venv/bin/activate
 pip install -e ".[dev]"
 pre-commit install

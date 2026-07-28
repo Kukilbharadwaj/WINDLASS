@@ -47,10 +47,13 @@ Credentials additionally accept the vendor's conventional name, so an existing s
 | `anthropic_api_key` | `WINDLASS_ANTHROPIC_API_KEY`, `ANTHROPIC_API_KEY` |
 | `google_api_key` | `WINDLASS_GOOGLE_API_KEY`, `GOOGLE_API_KEY`, `GEMINI_API_KEY` |
 | `groq_api_key` | `WINDLASS_GROQ_API_KEY`, `GROQ_API_KEY` |
+| `huggingface_api_key` | `WINDLASS_HUGGINGFACE_API_KEY`, `HUGGINGFACE_API_KEY`, `HF_TOKEN` |
 | `pinecone_api_key` | `WINDLASS_PINECONE_API_KEY`, `PINECONE_API_KEY` |
 | `langsmith_api_key` | `WINDLASS_LANGSMITH_API_KEY`, `LANGCHAIN_API_KEY`, `LANGSMITH_API_KEY` |
 | `langfuse_public_key` | `WINDLASS_LANGFUSE_PUBLIC_KEY`, `LANGFUSE_PUBLIC_KEY` |
 | `langfuse_secret_key` | `WINDLASS_LANGFUSE_SECRET_KEY`, `LANGFUSE_SECRET_KEY` |
+| `langfuse_host` | `WINDLASS_LANGFUSE_HOST`, `LANGFUSE_HOST`, `LANGFUSE_BASE_URL` |
+| `openai_base_url` | `WINDLASS_OPENAI_BASE_URL`, `OPENAI_BASE_URL` |
 | `ollama_base_url` | `WINDLASS_OLLAMA_BASE_URL`, `OLLAMA_BASE_URL` |
 
 A `.env` file in the working directory is loaded automatically.

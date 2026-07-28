@@ -1,22 +1,24 @@
 # Examples
 
-Every example in the [`examples/`](https://github.com/windlass/windlass/tree/main/examples) directory is runnable. The first four need **no API key and no extras**.
+Every example in the [`examples/`](https://github.com/Kukilbharadwaj/WINDLASS/tree/main/examples) directory runs on a bare `pip install windlass` — **no API key and no extras**.
 
 ```bash
 pip install windlass
 python examples/01_rag_basics/main.py
 ```
 
-| | Example | Needs | Shows |
+| | Example | Better with | Shows |
 |---|---|---|---|
-| 01 | RAG basics | nothing | Ingest, retrieve, generate; inspecting what was retrieved; idempotent ingestion |
-| 02 | Agent with tools | nothing | The reason/act loop, schema generation, parallel tools, error recovery |
-| 03 | Hybrid retrieval | nothing | Why dense-only search misses identifiers, and what RRF fixes |
-| 04 | Custom components | nothing | Writing and registering your own chunker, retriever, guardrail and LLM |
-| 05 | Production RAG | `[openai,rag]` | Guardrails, PII redaction, dedup, persistence, evaluation gate, tracing |
-| 06 | Multi-agent research | `[openai]` | Supervisor, specialists, broadcast, pipeline, RAG-as-a-tool |
-| 07 | Human in the loop | nothing | Approval gating, interrupts, resume, rejection feedback, edited arguments |
-| 08 | MCP integration | nothing | Binding MCP tools, namespacing, graceful degradation |
+| 01 | RAG basics | — | Ingest, retrieve, generate; inspecting what was retrieved; idempotent ingestion |
+| 02 | Agent with tools | — | The reason/act loop, schema generation, parallel tools, error recovery |
+| 03 | Hybrid retrieval | — | Why dense-only search misses identifiers, and what RRF fixes |
+| 04 | Custom components | — | Writing and registering your own chunker, retriever, guardrail and LLM |
+| 05 | Production RAG | `[openai,rag]` + a key | Guardrails, PII redaction, dedup, persistence, evaluation gate, tracing |
+| 06 | Multi-agent research | `[openai]` + a key | Supervisor, specialists, broadcast, pipeline, RAG-as-a-tool |
+| 07 | Human in the loop | — | Approval gating, interrupts, resume, rejection feedback, edited arguments |
+| 08 | MCP integration | — | Binding MCP tools, namespacing, graceful degradation |
+
+Examples 05 and 06 fall back to the offline providers when no key is configured, so they still run and still show the structure — they just script the model instead of asking a real one. The "better with" column is what they upgrade to, never what they require.
 
 Each directory has a `README.md` explaining the output and what to change.
 
@@ -97,10 +99,10 @@ MCP servers are subprocesses and network endpoints. They will be unavailable som
 ## Running them all
 
 ```bash
-for dir in examples/*/; do
+for dir in examples/0[1-8]_*/; do
     echo "=== $dir ==="
-    python "$dir/main.py" || echo "SKIPPED"
+    python "$dir/main.py"
 done
 ```
 
-CI runs exactly this on every commit, so an example that stops working fails the build.
+CI runs exactly this on every commit, against a bare `pip install -e .`, so an example that stops working fails the build.

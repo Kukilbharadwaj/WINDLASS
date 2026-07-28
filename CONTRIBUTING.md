@@ -7,7 +7,7 @@ Thank you for considering it. Windlass is built to be extended, and the most val
 ## Setup
 
 ```bash
-git clone https://github.com/windlass/windlass && cd windlass
+git clone https://github.com/Kukilbharadwaj/WINDLASS && cd WINDLASS
 python -m venv venv
 source venv/bin/activate          # Windows: venv\Scripts\activate
 pip install -e ".[dev]"

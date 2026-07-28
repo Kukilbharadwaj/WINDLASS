@@ -68,7 +68,7 @@ REGISTRY.register_lazy(
 )
 ```
 
-No import happens. The module is imported the first time somebody actually asks for that component — which is why `import windlass` registers sixty-odd components in a few milliseconds and pulls in zero optional dependencies.
+No import happens. The module is imported the first time somebody actually asks for that component — which is why `import windlass` registers seventy components in a few milliseconds and pulls in zero optional dependencies. (`windlass info` prints the live count.)
 
 There are three ways to register:
 
@@ -168,7 +168,7 @@ Wiring that by hand, correctly, every time, is precisely the integration work Wi
 
 ## The interfaces
 
-Thirteen contracts, one per component kind. Every one:
+Thirteen contracts in `interfaces/`, one per component kind — the two remaining kinds, `cache` and `checkpointer`, are plain ABCs, since neither wraps a provider SDK. Every one of the thirteen:
 
 - is **async-first** — implementers write `a*` coroutines and the blocking API is derived, so the two cannot drift;
 - extends `Component`, which supplies naming, configuration, lifecycle and `describe()`;

@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import os
 
-from windlass import Windlass, ToolCall, tool
+from windlass import ToolCall, Windlass, tool
 
 # ---------------------------------------------------------------------------
 # A small knowledge base, exposed to one specialist as a RAG-backed tool.

@@ -268,7 +268,7 @@ graph.add_conditional_edges(
 
 agent.recompile()
 
-print(agent.draw())          # Mermaid source for the compiled graph
+print(agent.build().draw())  # Mermaid source for the compiled graph
 ```
 
 You changed the topology. Tools, memory, guardrails, checkpointing and tracing all still work — that is the Level 3 promise.

@@ -141,8 +141,8 @@ The schema the model sees is derived from the signature and docstring:
  'parameters': {'type': 'object',
                 'properties': {'expression': {'type': 'string',
                                               'description': 'A Python arithmetic expression, e.g. "2 + 2 * 3".'}},
-                'required': ['expression'],
-                'additionalProperties': False}}
+                'additionalProperties': False,
+                'required': ['expression']}}
 ```
 
 ### See what it did

@@ -9,7 +9,7 @@ The real FastMCP client has an identical interface; see the notes at the end.
 
 from __future__ import annotations
 
-from windlass import Windlass, ToolCall, tool
+from windlass import ToolCall, Windlass, tool
 from windlass.providers.mcp.fastmcp import MultiMCPClient, StaticMCPClient
 
 # ---------------------------------------------------------------------------

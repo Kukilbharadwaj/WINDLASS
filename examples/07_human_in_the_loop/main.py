@@ -11,7 +11,7 @@ import contextlib
 import tempfile
 from pathlib import Path
 
-from windlass import AgentInterrupt, Windlass, ToolCall, tool
+from windlass import AgentInterrupt, ToolCall, Windlass, tool
 
 # ---------------------------------------------------------------------------
 # The audit log. In a real system these are irreversible side effects: money

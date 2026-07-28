@@ -132,7 +132,7 @@ Your span nests inside the surrounding Windlass trace automatically.
 
 Most frameworks give you Level 1 and Level 2. The failure mode is familiar: the abstraction covers 90% of what you need, and the last 10% forces a rewrite — because the framework owns the objects and will not give them back.
 
-Windlass treats that last 10% as a first-class requirement. `native()` is on the base `Component` class, which means **every** component has it, including ones you have not read the source of.
+Windlass treats that last 10% as a first-class requirement. `native()` is on the base `Component` class, which means **every** component built on an interface has it — including ones you have not read the source of. (The two exceptions are `cache` and `checkpointer`, which wrap no SDK and so have nothing to hand back.)
 
 The practical consequence: adopting Windlass is not a bet that its abstractions will cover every future requirement. It is a bet that they will cover the common case — and you keep the underlying library either way.
 

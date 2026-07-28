@@ -99,11 +99,13 @@ windlass list        # every registered component; uninstalled ones are marked
 
 ```
 vectordb
-  chroma            (not installed)
-  faiss             (not installed)
+  chroma  (not installed)
+  faiss  (not installed)
   memory
-  pinecone          (not installed)
+  pinecone  (not installed)
 ```
+
+Name a kind — `windlass list vectordb` — to get descriptions and aliases as well.
 
 ## Credentials
 
@@ -123,7 +125,7 @@ A `.env` file in the working directory is read automatically. See [Configuration
 ## Development install
 
 ```bash
-git clone https://github.com/windlass/windlass && cd windlass
+git clone https://github.com/Kukilbharadwaj/WINDLASS && cd WINDLASS
 python -m venv venv
 source venv/bin/activate          # Windows: venv\Scripts\activate
 pip install -e ".[dev]"
@@ -131,7 +133,7 @@ pre-commit install
 pytest
 ```
 
-The whole test suite runs offline in a few seconds. See [Testing](../guides/testing.md).
+The whole test suite runs offline in under a minute. See [Testing](../guides/testing.md).
 
 ## Docker
 
@@ -155,4 +157,4 @@ RUN python -c "from sentence_transformers import SentenceTransformer; \
 
 ## Upgrading
 
-Windlass follows semantic versioning. Before 1.0, minor versions may change public API; the [changelog](https://github.com/windlass/windlass/blob/main/CHANGELOG.md) records every break, and the [migration guide](../guides/migration.md) explains how to move.
+Windlass follows semantic versioning. Before 1.0, minor versions may change public API; the [changelog](https://github.com/Kukilbharadwaj/WINDLASS/blob/main/CHANGELOG.md) records every break, and the [migration guide](../guides/migration.md) explains how to move.

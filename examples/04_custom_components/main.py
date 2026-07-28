@@ -18,9 +18,9 @@ from windlass import (
     Completion,
     Guardrail,
     GuardrailResult,
-    Windlass,
     Retriever,
     ScoredChunk,
+    Windlass,
     register,
 )
 

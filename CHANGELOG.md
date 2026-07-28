@@ -267,12 +267,12 @@ First release.
 - `windlass` CLI: `doctor`, `info`, `list`, `config`, `ask`, `chat`.
 - `windlass.testing` — scripted models, offline pipeline and agent factories,
   registry isolation, span capture, recording tools.
-- 562 tests, running offline in seconds with no API keys — including every
-  docstring example, executed as part of the suite so a documented example
-  that does not run fails the build.
+- Over 650 tests, running offline in under a minute with no API keys —
+  including every docstring example, executed as part of the suite so a
+  documented example that does not run fails the build.
 - `mypy` clean, `ruff` clean, `black` formatted.
 - MkDocs documentation site with a generated API reference.
-- Eight runnable examples, the first four needing no dependencies at all.
+- Eight runnable examples, all of which run on the core install alone.
 
-[Unreleased]: https://github.com/windlass/windlass/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/windlass/windlass/releases/tag/v0.1.0
+[Unreleased]: https://github.com/Kukilbharadwaj/WINDLASS/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/Kukilbharadwaj/WINDLASS/releases/tag/v0.1.0

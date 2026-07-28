@@ -1,8 +1,8 @@
 site_name: Windlass
 site_description: The modular AI application framework — one elegant API for agents, RAG, tools, MCP, guardrails, evaluation and observability.
-site_url: https://windlass.github.io/windlass/
-repo_url: https://github.com/windlass/windlass
-repo_name: windlass/windlass
+site_url: https://kukilbharadwaj.github.io/WINDLASS/
+repo_url: https://github.com/Kukilbharadwaj/WINDLASS
+repo_name: Kukilbharadwaj/WINDLASS
 edit_uri: edit/main/docs/
 copyright: Apache 2.0 — The Windlass Authors
 
@@ -133,7 +133,7 @@ nav:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/windlass/windlass
+      link: https://github.com/Kukilbharadwaj/WINDLASS
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/windlass/
 

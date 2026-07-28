@@ -28,7 +28,7 @@ answer.usage.total_tokens
 
 ## Import cost
 
-`import windlass` costs less than importing `pydantic-settings`, which it depends on. That is deliberate: providers are registered by dotted path and imported only when used.
+Almost all of `import windlass` is `pydantic-settings`, which it depends on; Windlass's own share is a small fraction of the total. That is deliberate: providers are registered by dotted path and imported only when used.
 
 ```bash
 python -X importtime -c "import windlass" 2>&1 | tail -5
@@ -77,8 +77,10 @@ Blocking parsers (pypdf, python-docx, openpyxl) run on the thread pool, so a fol
 
 ```python
 loader = Windlass.loader()
+pipeline = rag.build()
+
 async for document in loader.astream_load("./huge-corpus"):
-    await rag.aingest_documents([document])
+    await pipeline.aingest_documents([document])
 ```
 
 Keeps peak memory flat regardless of corpus size.
@@ -159,7 +161,7 @@ writer     = Windlass.agent().llm("claude-sonnet-4-5")
 ### Batch offline work
 
 ```python
-answers = await rag.llm.abatch(prompts, concurrency=16)
+answers = await rag.build().llm.abatch(prompts, concurrency=16)
 ```
 
 Bounded on purpose — unbounded fan-out over a few hundred prompts is the fastest way to get rate limited.

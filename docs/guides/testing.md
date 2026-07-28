@@ -2,7 +2,7 @@
 
 Testing an AI application is hard for one specific reason: the model is non-deterministic, slow and costs money. The fix is to make every component replaceable — which is what the architecture already does.
 
-The entire Windlass test suite (562 tests) runs offline in under ten seconds with no API keys. Your suite can too.
+The entire Windlass test suite (over 650 tests) runs offline in well under a minute with no API keys. Your suite can too.
 
 That count includes every docstring example. `--doctest-modules` is on in `pyproject.toml`, so a documented example that does not run fails the build — which is the only way examples stay correct.
 

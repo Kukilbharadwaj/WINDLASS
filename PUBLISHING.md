@@ -30,12 +30,35 @@ export TWINE_PASSWORD=pypi-YOUR-TOKEN-HERE
 python -m twine upload dist/*
 ```
 
-Rehearse against TestPyPI first if you want (needs a separate token from
-<https://test.pypi.org/manage/account/token/>):
+## 2a. Rehearse on TestPyPI first (recommended)
+
+TestPyPI is a throwaway copy of PyPI. Upload there, install from there, confirm
+the project page and the install both look right — then do the real upload. It
+needs its own account and token from <https://test.pypi.org/manage/account/token/>;
+a PyPI token will **not** work on TestPyPI.
 
 ```powershell
+$env:TWINE_USERNAME = "__token__"
+$env:TWINE_PASSWORD = "pypi-YOUR-TESTPYPI-TOKEN"
 .\venv\Scripts\python.exe -m twine upload --repository testpypi dist/*
 ```
+
+Then install it into a scratch environment. `--extra-index-url` is required
+because Windlass's own dependencies (pydantic, httpx, ...) live on real PyPI,
+not on TestPyPI:
+
+```powershell
+py -m venv C:\Temp\wl-test
+C:\Temp\wl-test\Scripts\python.exe -m pip install `
+    --index-url https://test.pypi.org/simple/ `
+    --extra-index-url https://pypi.org/simple/ `
+    windlass
+C:\Temp\wl-test\Scripts\windlass.exe doctor
+```
+
+Check <https://test.pypi.org/project/windlass/> renders the README correctly and
+the sidebar links resolve. Uploading the same 0.1.0 to real PyPI afterwards is
+fine — TestPyPI and PyPI are entirely separate registries.
 
 ## 3. Verify
 
@@ -45,18 +68,23 @@ python -c "import windlass; print(windlass.__version__)"
 windlass doctor
 ```
 
-## Pre-flight state (already done)
+## Pre-flight state (verified)
 
 | Check | Result |
 |---|---|
-| Name `windlass` free on PyPI | yes, verified |
+| Name `windlass` free on PyPI | yes — `/pypi/windlass/json` and `/simple/windlass/` both 404 |
 | `twine check` on wheel + sdist | PASSED |
-| Wheel installs in a clean venv | yes — 15 dependencies |
+| Wheel installs in a clean venv | yes — 15 packages total, all pure-Python |
 | Sdist builds and installs from source | yes |
-| `windlass` CLI entry point | works |
-| Secrets in artifacts | none — no `.env` included |
-| Test suite | 652 passed |
+| `windlass` CLI entry point | works — `windlass doctor` reports healthy |
+| Secrets in artifacts | none — no `.env`, no venv, no `.git` |
+| Test suite | 652 passed, 21 skipped, ~40s |
 | ruff / mypy | clean |
+| Project URLs resolve | point at `Kukilbharadwaj/WINDLASS` — **make that repo public before release**, or the PyPI sidebar links 404 |
+
+Rebuild (`python -m build`) after **any** change to `README.md` or
+`pyproject.toml` — the README is the PyPI landing page, and it is baked into the
+artifacts at build time, not read at upload time.
 
 ## After publishing
 

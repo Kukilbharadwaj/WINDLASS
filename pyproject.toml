@@ -41,11 +41,11 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/windlass/windlass"
-Documentation = "https://windlass.github.io/windlass/"
-Repository = "https://github.com/windlass/windlass"
-Changelog = "https://github.com/windlass/windlass/blob/main/CHANGELOG.md"
-Issues = "https://github.com/windlass/windlass/issues"
+Homepage = "https://github.com/Kukilbharadwaj/WINDLASS"
+Documentation = "https://kukilbharadwaj.github.io/WINDLASS/"
+Repository = "https://github.com/Kukilbharadwaj/WINDLASS"
+Changelog = "https://github.com/Kukilbharadwaj/WINDLASS/blob/main/CHANGELOG.md"
+Issues = "https://github.com/Kukilbharadwaj/WINDLASS/issues"
 
 # ---------------------------------------------------------------------------
 # Optional dependency groups  (pip install windlass[agent,rag])

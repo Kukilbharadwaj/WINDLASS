@@ -55,7 +55,7 @@ The tool's JSON schema comes from its type hints and docstring. There is no seco
 pip install windlass
 ```
 
-The core install is `pydantic` and `httpx`. Nothing else. And yet the example above runs — because Windlass ships dependency-free implementations of every *essential* component: a scripted model, hashed embeddings, an exact in-memory vector store, BM25, recursive chunking, rule-based guardrails, lexical evaluation metrics.
+The core install is four packages — `pydantic`, `pydantic-settings`, `httpx` and `typing-extensions`. Nothing else. And yet the example above runs — because Windlass ships dependency-free implementations of every *essential* component: a scripted model, hashed embeddings, an exact in-memory vector store, BM25, recursive chunking, rule-based guardrails, lexical evaluation metrics.
 
 That is not a toy mode. It is what makes the framework testable offline, learnable without an API key, and honest about which parts genuinely need a heavyweight dependency.
 
@@ -106,7 +106,7 @@ Windlass simplifies libraries. It never hides them. See [Three levels of API](co
 | **Program against interfaces** | No module in Windlass imports a concrete provider. Ever. |
 | **Composition over inheritance** | Pipelines are assembled from components, not built by subclassing. |
 | **Open for extension** | Every kind is a registry entry; yours registers the same way built-ins do. |
-| **Lazy by default** | `import windlass` pulls in no optional dependency and costs less than importing `pydantic-settings`. |
+| **Lazy by default** | `import windlass` pulls in no optional dependency. Almost all of its import cost is `pydantic-settings`, which it depends on; Windlass's own share is a small fraction of that. |
 | **Async-first** | Every interface defines `a*` coroutines; the blocking API is derived from them, so the two cannot drift. |
 | **Errors that tell you what to do** | A missing extra prints the exact `pip install` command. No raw `ImportError` ever reaches your code. |
 | **Degrade, don't crash** | A dead MCP server, a failing hybrid leg, a broken tracer: log and continue. Partial capability beats none. |
