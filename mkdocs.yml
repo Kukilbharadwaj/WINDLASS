@@ -1,0 +1,141 @@
+site_name: Windlass
+site_description: The modular AI application framework — one elegant API for agents, RAG, tools, MCP, guardrails, evaluation and observability.
+site_url: https://windlass.github.io/windlass/
+repo_url: https://github.com/windlass/windlass
+repo_name: windlass/windlass
+edit_uri: edit/main/docs/
+copyright: Apache 2.0 — The Windlass Authors
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+hooks:
+  - docs/hooks.py
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - docs/gen_reference.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            docstring_section_style: table
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_signature_annotations: true
+            separate_signature: true
+            line_length: 88
+            merge_init_into_class: true
+            members_order: source
+            filters: ["!^_"]
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - getting-started/installation.md
+      - getting-started/quickstart.md
+      - getting-started/configuration.md
+  - Concepts:
+      - concepts/architecture.md
+      - concepts/three-levels.md
+      - concepts/components.md
+      - concepts/rag.md
+      - concepts/agents.md
+      - concepts/tools-and-mcp.md
+      - concepts/safety-and-quality.md
+  - Tutorials:
+      - tutorials/beginner.md
+      - tutorials/intermediate.md
+      - tutorials/advanced.md
+  - Guides:
+      - guides/plugins.md
+      - guides/best-practices.md
+      - guides/performance.md
+      - guides/testing.md
+      - guides/troubleshooting.md
+      - guides/migration.md
+      - guides/faq.md
+  - Examples: examples.md
+  - API reference: reference/
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/windlass/windlass
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/windlass/
+
+watch:
+  - src/windlass

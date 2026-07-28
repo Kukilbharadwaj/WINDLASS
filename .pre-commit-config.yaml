@@ -1,0 +1,71 @@
+# Run on every commit:  pre-commit install
+# Run over everything:   pre-commit run --all-files
+default_language_version:
+  python: python3.12
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+        args: [--unsafe]        # mkdocs.yml uses !!python/name tags
+      - id: check-json
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: detect-private-key
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.0
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+        # black is the formatter of record; ruff-format only checks agreement.
+        stages: [manual]
+
+  - repo: https://github.com/psf/black
+    rev: 26.5.1
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.18.2
+    hooks:
+      - id: mypy
+        files: ^src/windlass/
+        additional_dependencies:
+          - pydantic>=2.7
+          - pydantic-settings>=2.2
+          - httpx>=0.27
+          - types-requests
+
+  - repo: local
+    hooks:
+      # The core install being tiny is a load-bearing property of the design.
+      # This catches an eager import before it reaches CI.
+      - id: no-eager-optional-imports
+        name: no optional dependency imported at windlass import time
+        entry: >
+          python -c "
+          import subprocess, sys;
+          code = 'import sys, windlass; leaked=[m for m in (\"numpy\",\"openai\",\"anthropic\",\"langgraph\",\"chromadb\",\"faiss\",\"torch\",\"sentence_transformers\") if m in sys.modules]; assert not leaked, f\"import windlass pulled in: {leaked}\"';
+          sys.exit(subprocess.run([sys.executable, '-c', code]).returncode)
+          "
+        language: system
+        pass_filenames: false
+        files: ^src/windlass/
+
+      - id: pytest-fast
+        name: pytest (offline suite)
+        entry: pytest -m "not network" -q
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

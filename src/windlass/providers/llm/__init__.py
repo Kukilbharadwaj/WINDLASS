@@ -1,0 +1,9 @@
+﻿"""LLM provider adapters.
+
+Each module registers itself; see windlass.providers for the lazy manifest.
+
+Components here are registered lazily by :mod:`windlass.providers`, so importing
+this package does not import any optional dependency.
+"""
+
+from __future__ import annotations

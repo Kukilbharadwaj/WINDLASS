@@ -1,0 +1,244 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+# ---------------------------------------------------------------------------
+# Project metadata
+# ---------------------------------------------------------------------------
+[project]
+name = "windlass"
+dynamic = ["version"]
+description = "The modular AI application framework — one clean API for agents, RAG, tools, MCP, guardrails, evaluation and observability."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.12"
+authors = [{ name = "The Windlass Authors" }]
+maintainers = [{ name = "The Windlass Authors" }]
+keywords = [
+    "ai", "llm", "agents", "rag", "retrieval", "mcp", "agentic", "llmops",
+    "vector-database", "embeddings", "guardrails", "evaluation", "framework",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Typing :: Typed",
+]
+
+# The core install is deliberately tiny. Everything else is opt-in.
+dependencies = [
+    "pydantic>=2.7",
+    "pydantic-settings>=2.2",
+    "httpx>=0.27",
+    "typing-extensions>=4.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/windlass/windlass"
+Documentation = "https://windlass.github.io/windlass/"
+Repository = "https://github.com/windlass/windlass"
+Changelog = "https://github.com/windlass/windlass/blob/main/CHANGELOG.md"
+Issues = "https://github.com/windlass/windlass/issues"
+
+# ---------------------------------------------------------------------------
+# Optional dependency groups  (pip install windlass[agent,rag])
+# ---------------------------------------------------------------------------
+[project.optional-dependencies]
+
+# --- LLM providers -------------------------------------------------------
+openai = ["openai>=1.40,<3"]
+anthropic = ["anthropic>=0.34,<1"]
+gemini = ["google-genai>=1.0,<2"]
+groq = ["groq>=0.11,<3"]
+ollama = []                                   # uses the core httpx client
+llm = ["windlass[openai,anthropic,gemini,groq]"]
+
+# --- Feature groups ------------------------------------------------------
+agent = ["langgraph>=0.2.28,<2", "langchain-core>=0.3,<2"]
+
+embeddings = ["sentence-transformers>=3.0,<6", "numpy>=1.26,<3"]
+
+vectordb = ["faiss-cpu>=1.8,<2", "chromadb>=0.5,<2", "pinecone>=5.0,<10", "numpy>=1.26,<3"]
+faiss = ["faiss-cpu>=1.8,<2", "numpy>=1.26,<3"]
+chroma = ["chromadb>=0.5,<2"]
+pinecone = ["pinecone>=5.0,<10"]
+
+loaders = [
+    "pypdf>=4.3",
+    "python-docx>=1.1",
+    "python-pptx>=1.0",
+    "openpyxl>=3.1",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.2",
+    "youtube-transcript-api>=0.6",
+    "pillow>=10.4",
+]
+# Just the web/HTML path. Scraping a page should not install an Excel parser.
+web = ["beautifulsoup4>=4.12,<5", "lxml>=5.2,<7"]
+ocr = ["pytesseract>=0.3.13", "pillow>=10.4"]
+audio = ["faster-whisper>=1.0"]
+
+rag = ["windlass[embeddings,vectordb,loaders]", "tiktoken>=0.7"]
+
+mcp = ["fastmcp>=2.0,<4"]
+
+evaluation = ["ragas>=0.2", "deepeval>=1.0", "datasets>=2.20"]
+
+guardrails = ["nemoguardrails>=0.11,<1"]
+
+observability = ["langsmith>=0.1.100,<1", "langfuse>=2.50,<5"]
+
+pii = ["presidio-analyzer>=2.2", "presidio-anonymizer>=2.2"]
+
+cache = ["diskcache>=5.6,<6"]
+
+# --- Everything ----------------------------------------------------------
+full = [
+    "windlass[llm,agent,rag,mcp,evaluation,guardrails,observability,cache,ocr]",
+]
+
+# --- Contributor tooling -------------------------------------------------
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=5.0",
+    "pytest-timeout>=2.3",
+    "pytest-mock>=3.14",
+    "ruff>=0.6",
+    "black>=24.8",
+    "mypy>=1.11",
+    "types-requests",
+    "pre-commit>=3.8",
+    "numpy>=1.26",
+]
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.26",
+    "mkdocs-gen-files>=0.5",
+    "mkdocs-literate-nav>=0.6",
+    "mkdocs-section-index>=0.3",
+    "pymdown-extensions>=10.9",
+]
+
+[project.scripts]
+windlass = "windlass.cli:main"
+
+# ---------------------------------------------------------------------------
+# Build config
+# ---------------------------------------------------------------------------
+[tool.hatch.version]
+path = "src/windlass/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/windlass"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/docs", "/examples", "/README.md", "/LICENSE", "/CHANGELOG.md"]
+
+# ---------------------------------------------------------------------------
+# Tooling
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+extend-exclude = ["docs", "venv", ".venv"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "C4",   # comprehensions
+    "UP",   # pyupgrade
+    "SIM",  # simplify
+    "RUF",  # ruff-specific
+    "ASYNC",
+    "T20",  # no print
+    "D",    # pydocstyle
+]
+ignore = [
+    "D107",   # __init__ docstring — documented on the class instead
+    "D105",   # magic-method docstrings — __repr__/__len__/__iter__ are self-evident
+    "D203",   # incompatible with D211
+    "D213",   # incompatible with D212
+    "B008",   # function call in a default argument — intentional for pydantic Field
+    "SIM108", # ternary is not always clearer than if/else
+    # PEP 695 (`def f[T]()`) is valid on 3.12+, but explicit TypeVars are what
+    # every type checker and every contributor already reads fluently.
+    "UP047",
+    # Windlass prose uses real typography — en dashes, ›, ×, ∪ — and two regexes
+    # match en/em dashes on purpose. Flagging those as "ambiguous" is noise.
+    "RUF001",
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D", "T20"]
+"examples/*" = ["D", "T20"]
+"docs/*" = ["D", "T20"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["windlass"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.mypy]
+python_version = "3.12"
+packages = ["windlass"]
+mypy_path = "src"
+strict = false
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = false
+disallow_untyped_defs = false
+ignore_missing_imports = true
+follow_imports = "normal"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests", "src/windlass"]
+# Docstring examples are executed as tests. A documented example that does not
+# run is worse than no example, so they are part of the suite rather than
+# something to remember to check.
+addopts = "-ra --strict-markers --strict-config --doctest-modules"
+doctest_optionflags = ["ELLIPSIS", "NORMALIZE_WHITESPACE", "IGNORE_EXCEPTION_DETAIL"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+    "integration: end-to-end tests across multiple components",
+    "network: requires network access or live API credentials",
+    "optional: requires an optional dependency group to be installed",
+    "slow: takes more than a second",
+]
+filterwarnings = ["error::DeprecationWarning:windlass.*"]
+
+[tool.coverage.run]
+source = ["src/windlass"]
+branch = true
+omit = ["*/_version.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "@overload",
+    "\\.\\.\\.",
+]
